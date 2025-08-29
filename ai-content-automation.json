@@ -1,0 +1,122 @@
+{
+  "name": "AI Content Automation Workflow",
+  "flow": [
+    {
+      "id": 108,
+      "module": "google-docs:watchDocuments",
+      "version": 1,
+      "parameters": {
+        "limit": 1,
+        "select": "created",
+        "folderId": "YOUR_GOOGLE_FOLDER_ID",
+        "__IMTCONN__": "areeshausmani93_connection",
+        "destination": "drive"
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {"x": 0,"y": 300},
+        "restore": {
+          "parameters": {
+            "select": {"label": "By Created Date"},
+            "folderId": {"path": ["Personal Docs","Content Workflow"]},
+            "__IMTCONN__": {"label": "areeshausmani93_connection"},
+            "destination": {"label": "My Drive"}
+          }
+        }
+      }
+    },
+    {
+      "id": 106,
+      "module": "google-docs:getADocument",
+      "version": 1,
+      "parameters": {"__IMTCONN__": "areeshausmani93_connection"},
+      "mapper": {
+        "filter": "image",
+        "select": "map",
+        "document": "{{108.id}}",
+        "includeTabsContent": false
+      },
+      "metadata": {"designer": {"x": 300,"y": 300}}
+    },
+    {
+      "id": 109,
+      "module": "open-router:createAChatCompletion",
+      "version": 1,
+      "parameters": {"__IMTCONN__": "areeshausmani93_connection"},
+      "mapper": {
+        "n": "1",
+        "model": "openai/gpt-4o-mini",
+        "messages": [
+          {"role": "system","content": "You are a detail-oriented person who extracts specifics from text"},
+          {"role": "user","content": "Convert the text below into bullet points\n{{106.text}}"}
+        ],
+        "temperature": "1",
+        "top_p": "1",
+        "fallback": true,
+        "json_mode": false
+      },
+      "metadata": {"designer": {"x": 600,"y": 300}}
+    },
+    {
+      "id": 6,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "mapper": null,
+      "metadata": {"designer": {"x": 1200,"y": 300}},
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 110,
+              "module": "open-router:createAChatCompletion",
+              "version": 1,
+              "parameters": {"__IMTCONN__": "areeshausmani93_connection"},
+              "mapper": {
+                "n": "1",
+                "model": "openai/gpt-4o-mini",
+                "messages": [
+                  {"role": "system","content": "You are an expert LinkedIn content creator. Write posts without hashtags or emojis."},
+                  {"role": "user","content": "Take the transcript below and write a concise LinkedIn post.\n{{106.text}}\nUse bullet points as reference (not content):\n{{109.choices[].message.content}}"}
+                ],
+                "temperature": "1",
+                "top_p": "1",
+                "fallback": true,
+                "json_mode": false
+              },
+              "metadata": {"designer": {"x": 1500,"y": 0,"name": "LinkedIn Post"}}
+            },
+            {
+              "id": 8,
+              "module": "airtable:ActionCreateRecord",
+              "version": 3,
+              "parameters": {"__IMTCONN__": "areeshausmani93_connection"},
+              "mapper": {
+                "base": "YOUR_AIRTABLE_BASE",
+                "table": "Social",
+                "record": {
+                  "Platforms": ["LinkedIn"],
+                  "Status": "Review",
+                  "Content": "{{110.choices[].message.content}}",
+                  "Type": "Text"
+                },
+                "typecast": false
+              },
+              "metadata": {"designer": {"x": 1800,"y": 0}}
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true
+    },
+    "zone": "us2.make.com"
+  }
+}
