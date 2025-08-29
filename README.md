@@ -12,6 +12,26 @@ LinkedIn-ready posts in Airtable for review.
 
 
 ---
+
+## Workflow explained in simple terms
+
+- **Step 1 — Get content from Google Docs**  
+  Whenever I create a new document, the workflow picks it up automatically.  
+
+- **Step 2 — Summarize with GPT-4o**  
+  The AI reads the document and turns it into clear bullet points.  
+
+- **Step 3 — Write LinkedIn-ready posts**  
+  Using those bullet points as reference, GPT-4o writes a short, professional LinkedIn post.  
+
+- **Step 4 — Store everything in Airtable**  
+  The post is saved into Airtable so I can review, edit, and publish it later.  
+
+This means I don't have to manually copy-paste, summarize, and format content.  
+The workflow handles the boring part, while I just approve the final post.
+
+---
+
 ## What this workflow does
 
 - **Monitors Google Drive** — watches a specific folder for newly created Google Docs.  
