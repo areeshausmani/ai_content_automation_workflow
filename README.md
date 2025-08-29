@@ -1,10 +1,17 @@
-# AI Content Automation Workflow
+# AI Content Automation Workflow (Built with Make.com)
 
-This project automates content creation for multiple platforms using Google Docs, OpenRouter (GPT-4o-mini), and Airtable — all orchestrated in Make.com.  
-It eliminates repetitive tasks by turning a single document into platform-ready posts automatically.
+This workflow was designed and implemented in **Make.com** to automate content processing.  
+It fetches Google Docs content, summarizes it into bullet points using GPT-4o, and stores  
+LinkedIn-ready posts in Airtable for review.
+
+## Tools and Integrations
+- **Make.com** — workflow automation platform  
+- **Google Docs** — content input  
+- **OpenRouter GPT-4o** — AI text processing  
+- **Airtable** — structured content storage
+
 
 ---
-
 ## What this workflow does
 
 - **Monitors Google Drive** — watches a specific folder for newly created Google Docs.  
@@ -15,15 +22,7 @@ It eliminates repetitive tasks by turning a single document into platform-ready 
   - Carousel summaries (short key points)
 - **Stores the outputs in Airtable** for easy review and publishing.
 
----
 
-## Tools and integrations
-
-- **Make.com** (workflow orchestration)  
-- **Google Docs API** (document watching and content extraction)  
-- **OpenRouter / GPT-4o-mini** (AI content generation)  
-- **Airtable API** (content database)  
-- *(Optional)* Python script for text pre-cleaning before AI processing  
 
 ---
 
