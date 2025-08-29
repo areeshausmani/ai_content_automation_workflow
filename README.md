@@ -13,7 +13,7 @@ LinkedIn-ready posts in Airtable for review.
 
 ---
 
-## Workflow explained in simple terms
+## How it works?
 
 - **Step 1 — Get content from Google Docs**  
   Whenever I create a new document, the workflow picks it up automatically.  
