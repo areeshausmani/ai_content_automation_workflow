@@ -87,10 +87,4 @@ Instead of writing separate LinkedIn posts, tweets, and summaries manually, this
 
 ---
 
-## Future improvements
 
-- Add error-handling (retry failed AI calls).  
-- Automatically post approved drafts directly to LinkedIn/Twitter APIs.  
-- Extend to other platforms like Notion or Google Sheets.  
-
----
